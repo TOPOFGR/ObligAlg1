@@ -51,8 +51,8 @@ ListaPos<T>& ListaPosImp<T>::operator=(const ListaPos<T> &l)
 	if (this != &l) {
 		this->Vaciar();
 		
-		for (Iterador<T> i = l.GetIterador(); !i.EsFin();) {
-			AgregarOrd(i++);
+		for (int i = 0; i < largo;i++) {
+			AgregarFin(l.ElementoPos(i));
 		}
 	}
 	return *this;
@@ -63,8 +63,7 @@ ListaPos<T>& ListaPosImp<T>::operator=(const ListaPosImp<T> &l)
 {
 	if (this != &l) {
 		this->Vaciar();
-
-		for (Iterador<T> i = l.GetIterador(); !i.EsFin();) {
+		for (int i = 0; i < largo; i++) {
 			AgregarImp(i++);
 		}
 	}
@@ -212,8 +211,12 @@ bool ListaPosImp<T>::Existe(const T &e) const
 template <class T>
 void ListaPosImp<T>::Vaciar(){
 	// NO IMPLEMENTADA
-	NodoLista<T> * aux = ppio;
-	while (aux)
+	NodoLista<T> * aux = fin;
+	while (fin!=NULL) {
+		fin = fin->ant;
+		delete aux;
+		aux = fin;
+	}
 }
 
 template <class T>
@@ -228,13 +231,12 @@ bool ListaPosImp<T>::EsVacia() const{
 
 template <class T>
 bool ListaPosImp<T>::EsLlena() const{
-	// NO IMPLEMENTADA
+	//IMPLEMENTADA
 	return false;
 }
 
 template <class T>
-ListaPos<T>* ListaPosImp<T>::Clon() const
-{
+ListaPos<T>* ListaPosImp<T>::Clon() const{
 	// NO IMPLEMENTADA
 	return new ListaPosImp<T>();
 }
